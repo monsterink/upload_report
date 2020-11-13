@@ -18,6 +18,7 @@ class CreateUploadfilesTable extends Migration
             $table->char('an',50);
             $table->char('path',100);
             $table->char('filename',100);
+            $table->char('status',100);
             $table->timestamps();
         });
     }

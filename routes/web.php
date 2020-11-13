@@ -19,3 +19,5 @@ Route::get('/upload', function () {
     return view('Upload');
 });
 Route::post('/upload', 'App\Http\Controllers\UploadReportController@store');
+
+Route::get('/print/{accept_id}', 'App\Http\Controllers\UploadReportController@print');

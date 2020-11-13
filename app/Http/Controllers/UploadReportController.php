@@ -51,6 +51,7 @@ class UploadReportController extends Controller
         $upload->an=Request::input('an');
         $upload->filename=Request::file('filereport')->getClientOriginalName();
         $upload->path = Request::file('filereport')->store('public/files');
+        $upload->status = Request::input('status');
         $upload->save();
         return "success";
                 
@@ -99,5 +100,10 @@ class UploadReportController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function print($id)
+    {
+        $fn=uploadfile::find($id);
+        return view('print')->with(['filename' => $fn]);
     }
 }
