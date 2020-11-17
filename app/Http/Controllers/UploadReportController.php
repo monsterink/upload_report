@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\uploadfile;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Request;
+use Response;
 
 class UploadReportController extends Controller
 {
@@ -14,11 +15,13 @@ class UploadReportController extends Controller
      */
     public function index()
     {
-        $uploade=uploadfile::all();
-        return view('homeDoctor', ['uploadfiles' => $uploade]);
+        $upload=uploadfile::all();
+        return view('homeDoctor', ['uploadfiles' => $upload]);
     }
-    public function homeupload($id)
+    public function homeStaff()
     {
+        $upload=uploadfile::all();
+        return view('homeStaff', ['uploadfiles' => $upload]);
     }
     /**
      * Show the form for creating a new resource.
@@ -50,7 +53,7 @@ class UploadReportController extends Controller
         $upload = new uploadfile;
         $upload->an=Request::input('an');
         $upload->filename=Request::file('filereport')->getClientOriginalName();
-        $upload->path = Request::file('filereport')->store('public/files');
+        $upload->path = Request::file('filereport')->store('files');
         $upload->status = Request::input('status');
         $upload->save();
         return "success";
@@ -88,7 +91,10 @@ class UploadReportController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $fn = uploadfile::where('id',$id)
+          ->update(['status' => 'Active']);
+          return "success"; 
+          
     }
 
     /**
@@ -103,7 +109,40 @@ class UploadReportController extends Controller
     }
     public function print($id)
     {
-        $fn=uploadfile::find($id);
-        return view('print')->with(['filename' => $fn]);
+        //$fn=uploadfile::find($id);
+        $fn = uploadfile::select('path')->where('id',$id)->get();
+        $name= $fn[0]->path;
+        //$path = Storage::path('public/files');
+
+        $fn = uploadfile::where('id',$id)
+          ->update(['status' => 'Printing']);
+
+        $filename = '/app/'.$name;
+//return $filename;
+
+        $path = storage_path($filename);
+        return Response::make(file_get_contents($path), 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="'.$filename.'"'
+        ]);
+    }
+    public function delete(Request $request, $id)
+    {
+        $fn = uploadfile::where('id',$id)
+          ->delete();
+          return "Complete";   
+    }
+    public function preview($id)
+    {
+        $fn = uploadfile::select('path')->where('id',$id)->get();
+        $name= $fn[0]->path;
+
+        $filename = '/app/'.$name;
+
+        $path = storage_path($filename);
+        return Response::make(file_get_contents($path), 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="'.$filename.'"'
+        ]);
     }
 }

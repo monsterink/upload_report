@@ -22,26 +22,12 @@
         <span class="form-file-text">กรุณาเลือกไฟล์</span>
         <span class="form-file-button btn btn-primary ">เลือก</span>
     </label>
-    <input type="hidden" id="status" name="status" value="Active">
+    <input type="hidden" id="status" name="status" value="Upload">
     </div>
     <div class="mt-4 col-md-12 text-center">
     <button type="submit" type="button" class="btn btn-primary">Upload File</button>
     <a href="{{url('/homeDoctor')}}" class="btn btn-secondary" role="button">ย้อนกลับ</a>
     </div>
     </form>
-
-    <!-- <form action="{{url('/uplode')}}" method="post" enctype="multipart/form-data" class="was-validated">
-    @csrf
-        <div class="col-sm-12 col-md-11 col-lg-5">
-            <div class="form-group row">
-                <label for="file" class="col-md-3 col-lg-4 col-form-label">ไฟล์ :</label>
-                <div class="col-sm-8">
-                    <input id="file" name="filereport" type="file" class="form-control file-is-invalid" data-preview-file-type="text" data-allowed-file-extensions='["pdf"]' accept="application/pdf"/>
-                    @error('file')<div class="invalid-file">{{ $message }}</div>@enderror
-                </div>
-            </div>
-        </div>
-        <button type="submit" class="btn btn-primary">UPLOAD</button>
-    </form> -->
 </div>
 @endsection
