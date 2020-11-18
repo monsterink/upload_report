@@ -16,6 +16,11 @@ class UploadReportController extends Controller
     public function index()
     {
         $upload=uploadfile::all();
+        return view('upload', ['uploadfiles' => $upload]);
+    }
+    public function homeDoctor()
+    {
+        $upload=uploadfile::all();
         return view('homeDoctor', ['uploadfiles' => $upload]);
     }
     public function homeStaff()
@@ -56,7 +61,7 @@ class UploadReportController extends Controller
         $upload->path = Request::file('filereport')->store('files');
         $upload->status = Request::input('status');
         $upload->save();
-        return "success";
+        return redirect()->back();
                 
     }
 
@@ -107,13 +112,14 @@ class UploadReportController extends Controller
     {
         //
     }
+
     public function print($id)
     {
         //$fn=uploadfile::find($id);
         $fn = uploadfile::select('path')->where('id',$id)->get();
         $name= $fn[0]->path;
         //$path = Storage::path('public/files');
-
+     
         $fn = uploadfile::where('id',$id)
           ->update(['status' => 'Printing']);
 

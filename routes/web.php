@@ -13,18 +13,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/homeDoctor', 'App\Http\Controllers\UploadReportController@index');
-Route::get('/homeDoctor/{upload_id}', 'App\Http\Controllers\UploadReportController@preview');
+Route::get('/upload_list', 'App\Http\Controllers\UploadReportController@homeDoctor');
+Route::get('/upload_list/{upload_id}', 'App\Http\Controllers\UploadReportController@preview');
 
-Route::get('/confirm/{upload_id}', 'App\Http\Controllers\UploadReportController@update');
+//Route::get('/confirm/{upload_id}', 'App\Http\Controllers\UploadReportController@update');
 
 Route::get('/delete/{upload_id}', 'App\Http\Controllers\UploadReportController@delete');
 
-Route::get('/upload', function () {
-    return view('Upload');
-});
+Route::get('/upload', 'App\Http\Controllers\UploadReportController@index');
 Route::post('/upload', 'App\Http\Controllers\UploadReportController@store');
 
-Route::get('/homeStaff', 'App\Http\Controllers\UploadReportController@homeStaff');
+Route::get('/print_list', 'App\Http\Controllers\UploadReportController@homeStaff');
 
 Route::get('/print/{upload_id}', 'App\Http\Controllers\UploadReportController@print');

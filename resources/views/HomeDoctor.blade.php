@@ -40,15 +40,15 @@ table td {
   <tbody>
     <tr>
       <th scope="row">{{$key+1}}</th>
-      <td><a href="{{url('/homeDoctor/'.$uploadfile->id)}}" target="_blank" role="button">{{$uploadfile->an}}</a></td>
+      <td><!--<a href="{{url('/upload_list/'.$uploadfile->id)}}" target="_blank" role="button">-->{{$uploadfile->an}}</td>
       <td>{{$uploadfile->filename}}</td>
       <td>{{$uploadfile->created_at}}</td>
       <td>{{$uploadfile->status}}</td>
       @if($uploadfile->status == 'Upload')
-      <th><div class="form-popup" id="myForm">
+      <!-- <th><div class="form-popup" id="myForm">
         <a href="{{url('/confirm/'.$uploadfile->id)}}" class="btn btn-success rounded-pill" name="status" value="Active" role="button">ยืนยัน</a>
         <a href="{{url('/delete/'.$uploadfile->id)}}" class="btn btn-danger rounded-pill" name="status" role="button">ลบ</a>
-      </div></th>
+      </div></th> -->
       @endif
     </tr>
   </tbody>
