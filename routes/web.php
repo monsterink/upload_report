@@ -20,11 +20,11 @@ Route::get('/confirm/{upload_id}', 'App\Http\Controllers\UploadReportController@
 
 Route::get('/delete/{upload_id}', 'App\Http\Controllers\UploadReportController@delete');
 
+Route::post('/upload', 'App\Http\Controllers\UploadReportController@store');
 Route::get('/upload', function () {
     return view('Upload');
 });
-Route::post('/upload', 'App\Http\Controllers\UploadReportController@store');
 
 Route::get('/homeStaff', 'App\Http\Controllers\UploadReportController@homeStaff');
 
-Route::get('/print/{upload_id}', 'App\Http\Controllers\UploadReportController@print');
+Route::post('/print/{upload_id}', 'App\Http\Controllers\UploadReportController@print');

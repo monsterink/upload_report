@@ -24,7 +24,7 @@ table td {
 </svg>
         Upload Files</a>
 </div>
-<div class="mt-4">
+</div>
 <table class="table">
   <thead>
     <tr>

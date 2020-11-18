@@ -113,7 +113,6 @@ class UploadReportController extends Controller
         $fn = uploadfile::select('path')->where('id',$id)->get();
         $name= $fn[0]->path;
         //$path = Storage::path('public/files');
-
         $fn = uploadfile::where('id',$id)
           ->update(['status' => 'Printing']);
 
