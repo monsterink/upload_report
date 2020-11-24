@@ -5,6 +5,7 @@ use App\Models\uploadfile;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Auth;
 use Response;
 
 class UploadReportController extends Controller
@@ -20,7 +21,8 @@ class UploadReportController extends Controller
     }
     public function index()
     {
-        $upload=uploadfile::all();
+        $id=Auth::user()->id;
+        $upload=uploadfile::where('users_id',$id)->get();
         return view('homeDoctor', ['uploadfiles' => $upload]);
     }
     // public function homeDoctor()

@@ -16,6 +16,7 @@ table td {
 <table class="table">
   <thead>
     <tr>
+      <th scope="col">ลำดับที่</th>
       <th scope="col">AN</th>
       <th scope="col">ชื่อ</th>
       <th scope="col">วันที่</th>
@@ -23,10 +24,10 @@ table td {
     </tr>
   </thead>
   @if (count($uploadfiles) !=0 )
-    @foreach ($uploadfiles as $uploadfile) 
-      @if ($uploadfile->id==Auth::user()->id)
+    @foreach ($uploadfiles as $key => $uploadfile) 
       <tbody>
         <tr>
+          <th>{{$key+1}}</th>
           <td><!--<a href="{{url('/upload_list/'.$uploadfile->id)}}" target="_blank" role="button">-->{{$uploadfile->an}}</td>
           <td>{{$uploadfile->filename}}</td>
           <td>{{$uploadfile->created_at}}</td>
@@ -38,7 +39,6 @@ table td {
           </svg></a></td>
         </tr>
       </tbody>
-      @endif
     @endforeach
   @endif
 </table>
