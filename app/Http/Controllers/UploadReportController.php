@@ -13,21 +13,25 @@ class UploadReportController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function __construct()
     {
-        $upload=uploadfile::all();
-        return view('upload', ['uploadfiles' => $upload]);
+        $this->middleware('auth');
     }
-    public function homeDoctor()
+    public function index()
     {
         $upload=uploadfile::all();
         return view('homeDoctor', ['uploadfiles' => $upload]);
     }
-    public function homeStaff()
-    {
-        $upload=uploadfile::all();
-        return view('homeStaff', ['uploadfiles' => $upload]);
-    }
+    // public function homeDoctor()
+    // {
+    //     $upload=uploadfile::all();
+    //     return view('homeDoctor', ['uploadfiles' => $upload]);
+    // }
+    // public function homeStaff()
+    // {
+    //     $upload=uploadfile::all();
+    //     return view('homeDoctor', ['uploadfiles' => $upload]);
+    // }
     /**
      * Show the form for creating a new resource.
      *
@@ -35,7 +39,8 @@ class UploadReportController extends Controller
      */
     public function create()
     {
-        //
+        $upload=uploadfile::all();
+        return view('Upload', ['uploadfiles' => $upload]);
     }
 
     /**
@@ -61,7 +66,9 @@ class UploadReportController extends Controller
         $upload->path = Request::file('filereport')->store('files');
         $upload->status = Request::input('status');
         $upload->save();
-        return redirect()->back();
+        // return redirect('/uploads');
+        return redirect()->route('uploads');
+        
                 
     }
 

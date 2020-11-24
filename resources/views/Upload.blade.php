@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title','Homepage')
+@section('title','Uploads')
 
 @section('sidebar')
     @parent
@@ -9,7 +9,7 @@
 
 @section('content')  
 <div class="mt-4">
-<form action="{{url('/upload')}}" method="post" enctype="multipart/form-data">
+<form action="{{url('/uploads')}}" method="post" enctype="multipart/form-data">
         @csrf
     <div class="input-group mb-3">
     <span class="input-group-text btn-secondary" id="basic-addon1">AN</span>
@@ -22,7 +22,6 @@
     </div>
     <div class="mt-4 col-md-12 text-center">
     <button type="submit" type="button" class="btn btn-primary">Upload File</button>
-    <a href="{{url('/upload_list')}}" class="btn btn-secondary" role="button">ย้อนกลับ</a>
     </div>
     </form>
 </div>
