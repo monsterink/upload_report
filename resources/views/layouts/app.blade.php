@@ -15,7 +15,7 @@
 
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand">Upload-Report</a>
+    <a class="navbar-brand" href="/login">Upload-Report</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>   
@@ -35,7 +35,7 @@
         </ul>
         <ul class="nav justify-content-end">
           <span class="navbar-text">
-            Achiraya Anutarawattanakul
+          {{Auth::user()->name}}&nbsp;&nbsp;&nbsp;
           </span>
           <form action="{{url('/logout')}}" method="post">
             <input type="hidden" name="_token" value="{{csrf_token()}}">
@@ -47,17 +47,24 @@
     @if(Request::path() == 'login') 
       <ul class="nav justify-content-end">
         <li class="nav-item">
-          <a class="nav-link " href="/register">Register</a>
+          <a class="btn btn-primary" href="/register" role="button">Register</a>
         </li>
       </ul>
     @endif  
     @if(Request::path() == 'register') 
       <ul class="nav justify-content-end">
         <li class="nav-item">
-          <a class="nav-link " href="/login">Login</a>
+          <a class="btn btn-primary" href="/login" role="button">Login</a>
         </li>
       </ul>
-    @endif    
+    @endif 
+    @if(Request::path() == '/') 
+      <ul class="nav justify-content-end">
+        <li class="nav-item">
+          <a class="btn btn-primary" href="/login" role="button">Login</a>
+        </li>
+      </ul>
+    @endif   
   </div> 
 </nav>
       <div class="container">

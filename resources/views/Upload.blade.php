@@ -23,6 +23,7 @@
     <div class="mt-4 col-md-12 text-center">
     <button type="submit" type="button" class="btn btn-primary">Upload File</button>
     </div>
+    <input type="hidden" id="id" name="users_id" value="{{Auth::user()->id}}">
     </form>
 </div>
 @endsection

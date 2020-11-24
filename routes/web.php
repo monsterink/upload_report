@@ -19,7 +19,7 @@ Route::get('/uploads', 'App\Http\Controllers\UploadReportController@index')->nam
 
 //Route::get('/confirm/{upload_id}', 'App\Http\Controllers\UploadReportController@update');
 
-Route::get('/delete/{upload_id}', 'App\Http\Controllers\UploadReportController@delete');
+//Route::get('/delete/{upload_id}', 'App\Http\Controllers\UploadReportController@delete');
 
 Route::get('/uploads/create', 'App\Http\Controllers\UploadReportController@create');
 Route::post('/uploads', 'App\Http\Controllers\UploadReportController@store');
