@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 use App\Models\uploadfile;
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Auth;
 use Response;
 
 class UploadReportController extends Controller
@@ -13,16 +15,26 @@ class UploadReportController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
-        $upload=uploadfile::all();
+        $id=Auth::user()->id;
+        $upload=uploadfile::where('users_id',$id)->get();
         return view('homeDoctor', ['uploadfiles' => $upload]);
     }
-    public function homeStaff()
-    {
-        $upload=uploadfile::all();
-        return view('homeStaff', ['uploadfiles' => $upload]);
-    }
+    // public function homeDoctor()
+    // {
+    //     $upload=uploadfile::all();
+    //     return view('homeDoctor', ['uploadfiles' => $upload]);
+    // }
+    // public function homeStaff()
+    // {
+    //     $upload=uploadfile::all();
+    //     return view('homeDoctor', ['uploadfiles' => $upload]);
+    // }
     /**
      * Show the form for creating a new resource.
      *
@@ -30,7 +42,8 @@ class UploadReportController extends Controller
      */
     public function create()
     {
-        //
+        $upload=uploadfile::all();
+        return view('Upload', ['uploadfiles' => $upload]);
     }
 
     /**
@@ -41,23 +54,14 @@ class UploadReportController extends Controller
      */
     public function store()
     {
-        // // \Log::info($request->input('filereport'));
-        // if (Request::hasFile('filereport')) {
-        //     $path = Request::file('filereport')->store('public/files');
-        //     return Request::file('filereport')->getClientOriginalName();
-        // }else{
-        //     return 'fail' ;
-        // }
-        // // }
-        //  return Input::file('filereport');
         $upload = new uploadfile;
         $upload->an=Request::input('an');
         $upload->filename=Request::file('filereport')->getClientOriginalName();
         $upload->path = Request::file('filereport')->store('files');
         $upload->status = Request::input('status');
+        $upload->users_id = Request::input('users_id');
         $upload->save();
-        return "success";
-                
+        return redirect()->route('uploads');
     }
 
     /**
@@ -91,10 +95,9 @@ class UploadReportController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $fn = uploadfile::where('id',$id)
-          ->update(['status' => 'Active']);
-          return "success"; 
-          
+        // $fn = uploadfile::where('id',$id)
+        //   ->update(['status' => 'Active']);
+        //   return "success"; 
     }
 
     /**
@@ -107,12 +110,14 @@ class UploadReportController extends Controller
     {
         //
     }
+
     public function print($id)
     {
         //$fn=uploadfile::find($id);
         $fn = uploadfile::select('path')->where('id',$id)->get();
         $name= $fn[0]->path;
         //$path = Storage::path('public/files');
+     
         $fn = uploadfile::where('id',$id)
           ->update(['status' => 'Printing']);
 
@@ -127,21 +132,21 @@ class UploadReportController extends Controller
     }
     public function delete(Request $request, $id)
     {
-        $fn = uploadfile::where('id',$id)
-          ->delete();
-          return "Complete";   
+        // $fn = uploadfile::where('id',$id)
+        //   ->delete();
+        //   return "Complete";   
     }
-    public function preview($id)
-    {
-        $fn = uploadfile::select('path')->where('id',$id)->get();
-        $name= $fn[0]->path;
+    // public function preview($id)
+    // {
+    //     $fn = uploadfile::select('path')->where('id',$id)->get();
+    //     $name= $fn[0]->path;
 
-        $filename = '/app/'.$name;
+    //     $filename = '/app/'.$name;
 
-        $path = storage_path($filename);
-        return Response::make(file_get_contents($path), 200, [
-            'Content-Type' => 'application/pdf',
-            'Content-Disposition' => 'inline; filename="'.$filename.'"'
-        ]);
-    }
+    //     $path = storage_path($filename);
+    //     return Response::make(file_get_contents($path), 200, [
+    //         'Content-Type' => 'application/pdf',
+    //         'Content-Disposition' => 'inline; filename="'.$filename.'"'
+    //     ]);
+    // }
 }
