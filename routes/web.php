@@ -17,13 +17,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/uploads', 'App\Http\Controllers\UploadReportController@index')->name('uploads')->middleware('auth');
 //Route::get('/uploads/{id}', 'App\Http\Controllers\UploadReportController@preview');
 
-//Route::get('/confirm/{upload_id}', 'App\Http\Controllers\UploadReportController@update');
-
 //Route::get('/delete/{upload_id}', 'App\Http\Controllers\UploadReportController@delete');
 
 Route::get('/uploads/create', 'App\Http\Controllers\UploadReportController@create');
 Route::post('/uploads', 'App\Http\Controllers\UploadReportController@store');
 
+Route::get('/uploads/role/', 'App\Http\Controllers\UploadReportController@role');
+Route::post('/uploads/role/{upload_id}', 'App\Http\Controllers\UploadReportController@update');
 //Route::get('/upload_list', 'App\Http\Controllers\UploadReportController@homeDoctor');
 
 Route::get('/print/{upload_id}', 'App\Http\Controllers\UploadReportController@print');

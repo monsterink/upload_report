@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\uploadfile;
 use App\Models\User;
+use App\Models\Role;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,9 +22,18 @@ class UploadReportController extends Controller
     }
     public function index()
     {
+        $user=User::all();
         $id=Auth::user()->id;
         $upload=uploadfile::where('users_id',$id)->get();
-        return view('homeDoctor', ['uploadfiles' => $upload]);
+        return view('HomeDoctor', ['uploadfiles' => $upload,'users' => $user]);
+    }
+    public function role()
+    {
+        //$id=Auth::user()->id;
+        $user=User::all();
+        $role=Role::all();
+        //return $user;
+        return view('role', ['users' => $user,'roles' => $role]);
     }
     // public function homeDoctor()
     // {
@@ -83,7 +93,7 @@ class UploadReportController extends Controller
      */
     public function edit($id)
     {
-        //
+        
     }
 
     /**
@@ -93,11 +103,15 @@ class UploadReportController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($id)
     {
-        // $fn = uploadfile::where('id',$id)
-        //   ->update(['status' => 'Active']);
-        //   return "success"; 
+        //\Log::info($request);
+        $role = new User;
+        $role->role=Request::input('id');
+        
+        $user = User::where('id',$id)
+          ->update(['role' => $role]);
+          return "update success";
     }
 
     /**

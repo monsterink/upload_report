@@ -17,4 +17,8 @@ class uploadfile extends Model
     {
         return $this->belongsTo('App\Models\User');
     }
+    public function Role()
+    {
+        return $this->hasMany('App\Models\Role');
+    }
 }

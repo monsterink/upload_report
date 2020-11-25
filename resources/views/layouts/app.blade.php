@@ -27,9 +27,14 @@
           <a class="nav-link" aria-current="page" href="/uploads">Home</a>
         </li>
       @endif
-      @if(Request::path() != 'uploads/create')
+      @if(Request::path() != 'uploads/create' && Auth::user()->role=='1')
         <li class="nav-item">
           <a class="nav-link " href="/uploads/create">Upload</a>
+        </li>
+      @endif
+      @if(Request::path() != 'uploads/role' && Auth::user()->role=='3')
+        <li class="nav-item">
+          <a class="nav-link " href="/uploads/role">Role</a>
         </li>
       @endif
         </ul>
