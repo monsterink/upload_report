@@ -22,10 +22,17 @@ class UploadReportController extends Controller
     }
     public function index()
     {
-        $user=User::all();
-        $id=Auth::user()->id;
-        $upload=uploadfile::where('users_id',$id)->get();
-        return view('HomeDoctor', ['uploadfiles' => $upload,'users' => $user]);
+        // $user=User::all();
+        $userId=Auth::user()->id;
+        if(Auth::user()->role==1){
+            $upload=uploadfile::where('users_id',$userId)->get();
+        }elseif(Auth::user()->role==2){
+            $upload=uploadfile::all();
+        }else{
+            $upload=uploadfile::where('users_id',$userId)->get();
+        }
+        
+        return view('HomeDoctor', ['uploadfiles' => $upload]);
     }
     public function role()
     {
@@ -91,9 +98,10 @@ class UploadReportController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($upload_id)
     {
-        
+        $upload=uploadfile::find($upload_id);
+        return view('Upload', ['uploadfiles' => $upload]);
     }
 
     /**
@@ -103,15 +111,13 @@ class UploadReportController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update($id)
+    public function update($user_id)
     {
         //\Log::info($request);
-        $role = new User;
-        $role->role=Request::input('id');
-        
-        $user = User::where('id',$id)
-          ->update(['role' => $role]);
-          return "update success";
+        // $role->role=Request::input('role');
+        // return $role;
+        $user=User::find($user_id)->update(['role' => Request::input('role')]);
+        return redirect()->route('role');
     }
 
     /**
@@ -146,9 +152,9 @@ class UploadReportController extends Controller
     }
     public function delete(Request $request, $id)
     {
-        // $fn = uploadfile::where('id',$id)
-        //   ->delete();
-        //   return "Complete";   
+        $fn = uploadfile::where('id',$id)
+          ->delete();
+          return redirect()->route('uploads'); 
     }
     // public function preview($id)
     // {

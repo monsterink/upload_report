@@ -16,7 +16,6 @@ table td {
   text-align: center;
 }
 </style>
-{{$roles}}
 <div class="mt-4">
 <table class="table">
   <thead>
@@ -36,7 +35,7 @@ table td {
       <td>{{$user->email}}</td>
       <form action="{{url('/uploads/role/'.$user->id)}}" method="post" enctype="multipart/form-data">
       @csrf
-      <td><select class="form-control border border-warning" id="role" name="role" required>
+      <td><select class="form-select form-select-sm" id="role" name="role">
             @foreach ($roles as $role) 
                 <option value="{{$role->id}}"{{ old('id') == $user->role ? "selected" :""}}>{{$role->role}}</option>
             @endforeach

@@ -13,7 +13,7 @@
         @csrf
     <div class="input-group mb-3">
     <span class="input-group-text btn-secondary" id="basic-addon1">AN</span>
-    <input type="text" class="form-control" name="an" required>
+    <input type="text" class="form-control" id='an' name="an" value='' required>
     </div>
 
     <div class="form-file form-file-sm ">
