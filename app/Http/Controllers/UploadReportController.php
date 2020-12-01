@@ -87,9 +87,10 @@ class UploadReportController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($upload_id)
     {
-        //
+        $upload=uploadfile::find($upload_id);
+        return view('edit_uploads', ['uploadfiles' => $upload]);
     }
 
     /**
@@ -100,8 +101,12 @@ class UploadReportController extends Controller
      */
     public function edit($upload_id)
     {
-        $upload=uploadfile::find($upload_id);
-        return view('Upload', ['uploadfiles' => $upload]);
+        
+        $upload=uploadfile::find($upload_id)
+        ->update(['an' => Request::input('an'),
+        'filename' => Request::file('filereport')->getClientOriginalName(),
+        'path' => Request::file('filereport')->store('files')]);
+        return redirect()->route('uploads');
     }
 
     /**

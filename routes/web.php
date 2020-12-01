@@ -22,7 +22,8 @@ Route::get('/delete/{upload_id}', 'App\Http\Controllers\UploadReportController@d
 Route::get('/uploads/create', 'App\Http\Controllers\UploadReportController@create');
 Route::post('/uploads', 'App\Http\Controllers\UploadReportController@store');
 
-Route::get('/uploads/edit/{upload_id}', 'App\Http\Controllers\UploadReportController@edit');
+Route::get('/uploads/edit/{upload_id}', 'App\Http\Controllers\UploadReportController@show');
+Route::post('/uploads/edit/{upload_id}', 'App\Http\Controllers\UploadReportController@edit');
 
 Route::get('/uploads/role/', 'App\Http\Controllers\UploadReportController@role')->name('role');
 Route::post('/uploads/role/{user_id}', 'App\Http\Controllers\UploadReportController@update');
