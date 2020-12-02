@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\uploadfile;
 use App\Models\User;
 use App\Models\Role;
+use App\Models\Patient;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Auth;
@@ -60,7 +61,8 @@ class UploadReportController extends Controller
     public function create()
     {
         $upload=uploadfile::all();
-        return view('Upload', ['uploadfiles' => $upload]);
+        $patient=Patient::all();
+        return view('Upload', ['uploadfiles' => $upload,'patients' => $patient]);
     }
 
     /**

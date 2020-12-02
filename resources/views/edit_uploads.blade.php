@@ -17,12 +17,13 @@
     </div>
 
     <div class="form-file form-file-sm ">
-    <input class="form-control" type="file" id="filereport" name="filereport" value="{{$uploadfiles->filename}}">
+    <input class="form-control" type="file" id="filereport" name="filereport" accept="application/pdf" >
     <input type="hidden" id="status" name="status" value="Upload">
     </div>
 
     <div class="input-group mb-3">
     <span class="input-group-text" id="basic-addon1">{{$uploadfiles->filename}}</span>
+    <input type="hidden" id="filereport" name="filereport" value="{{$uploadfiles->filename}}">
     </div>
 
     <div class="mt-4 col-md-12 text-center">

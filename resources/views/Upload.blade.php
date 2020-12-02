@@ -8,16 +8,17 @@
 @endsection
 
 @section('content')  
+{{$uploadfiles}}
 <div class="mt-4">
 <form action="{{url('/uploads')}}" method="post" enctype="multipart/form-data">
         @csrf
     <div class="input-group mb-3">
     <span class="input-group-text btn-secondary" id="basic-addon1">AN</span>
-    <input type="text" class="form-control" id='an' name="an"  required>
+    <input type="text" class="form-control" id='an' name="an" required>
     </div>
 
     <div class="form-file form-file-sm ">
-    <input class="form-control" type="file" id="filereport" name="filereport">
+    <input class="form-control" type="file" id="filereport" name="filereport" accept="application/pdf">
     <input type="hidden" id="status" name="status" value="Upload">
     </div>
     <div class="mt-4 col-md-12 text-center">

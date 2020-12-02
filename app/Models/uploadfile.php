@@ -21,4 +21,8 @@ class uploadfile extends Model
     {
         return $this->hasMany('App\Models\Role');
     }
+    public function Patient()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
 }

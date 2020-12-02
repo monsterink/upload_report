@@ -12,6 +12,6 @@ class Role extends Model
 
     public function User()
     {
-        return $this->uploadfile('App\Models\User');
+        return $this->belongsTo('App\Models\User');
     }
 }
