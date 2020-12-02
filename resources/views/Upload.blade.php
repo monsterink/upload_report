@@ -7,24 +7,94 @@
 
 @endsection
 
-@section('content')  
-{{$uploadfiles}}
+@section('content')
+<head>
+        <script src="{{ URL::asset('pdf.js') }}"></script>
+        <script src="{{ URL::asset('pdf.worker.js') }}"></script>
+</head>
 <div class="mt-4">
 <form action="{{url('/uploads')}}" method="post" enctype="multipart/form-data">
         @csrf
     <div class="input-group mb-3">
-    <span class="input-group-text btn-secondary" id="basic-addon1">AN</span>
-    <input type="text" class="form-control" id='an' name="an" required>
+        <span class="input-group-text btn-secondary" id="basic-addon1">AN</span>
+        <input type="text" class="form-control" id='an' name="an" required>
     </div>
 
     <div class="form-file form-file-sm ">
-    <input class="form-control" type="file" id="filereport" name="filereport" accept="application/pdf">
-    <input type="hidden" id="status" name="status" value="Upload">
+        <button id="upload-dialog">Choose PDF</button>
+        <input class="form-control" type="file" id="pdf-file" name="filereport" accept="application/pdf" style="display:none" />
+        <div id="pdf-loader" style="display:none">Loading Preview ..</div>
+        <canvas id="pdf-preview" width="150" style="display:none"></canvas>
+        <input type="hidden" id="status" name="status" value="Upload">
     </div>
+
     <div class="mt-4 col-md-12 text-center">
-    <button type="submit" type="button" class="btn btn-primary">Upload File</button>
+        <button type="submit" type="button" class="btn btn-primary">Upload File</button>
     </div>
-    <input type="hidden" id="id" name="users_id" value="{{Auth::user()->id}}">
+
+        <input type="hidden" id="id" name="users_id" value="{{Auth::user()->id}}">
     </form>
 </div>
+<script>
+        var _PDF_DOC;
+        var _CANVAS = document.querySelector('#pdf-preview');
+        var _OBJECT_URL;
+
+        function showPDF(pdf_url) {
+            PDFJS.getDocument({ url: pdf_url }).then(function(pdf_doc) {
+                _PDF_DOC = pdf_doc;
+
+                showPage(1);
+
+                URL.revokeObjectURL(_OBJECT_URL);
+            }).catch(function(error) {
+                alert(error.message);
+            });;
+        }
+
+        function showPage(page_no) {
+            _PDF_DOC.getPage(page_no).then(function(page) {
+                var scale_required = _CANVAS.width / page.getViewport(1).width;
+                var viewport = page.getViewport(scale_required);
+                _CANVAS.height = viewport.height;
+
+                var renderContext = {
+                    canvasContext: _CANVAS.getContext('2d'),
+                    viewport: viewport
+                };
+                
+                page.render(renderContext).then(function() {
+                    document.querySelector("#pdf-preview").style.display = 'inline-block';
+                    document.querySelector("#pdf-loader").style.display = 'none';
+                });
+            });
+        }
+
+        document.querySelector("#upload-dialog").addEventListener('click', function() {
+            document.querySelector("#pdf-file").click();
+        });
+
+        document.querySelector("#pdf-file").addEventListener('change', function() {
+            var file = this.files[0];
+            var mime_types = [ 'application/pdf' ];
+
+            if(mime_types.indexOf(file.type) == -1) {
+                alert('Error : Incorrect file type');
+                return;
+            }
+
+            if(file.size > 10*1024*1024) {
+                alert('Error : Exceeded size 10MB');
+                return;
+            }
+    
+            document.querySelector("#upload-dialog").style.display = 'none';
+            document.querySelector("#pdf-loader").style.display = 'inline-block';
+
+    
+            _OBJECT_URL = URL.createObjectURL(file)
+
+            showPDF(_OBJECT_URL);
+        });
+    </script>
 @endsection
