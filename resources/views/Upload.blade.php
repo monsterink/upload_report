@@ -11,13 +11,20 @@
 <head>
         <script src="{{ URL::asset('pdf.js') }}"></script>
         <script src="{{ URL::asset('pdf.worker.js') }}"></script>
+        <!-- CSS -->
+        <link rel="stylesheet" type="text/css" href="{{asset('jqueryui/jquery-ui.min.css')}}">
+
+        <!-- Script -->
+        <script src="{{URL::asset('jquery-3.3.1.min.js')}}" type="text/javascript"></script>
+        <script src="{{asset('jqueryui/jquery-ui.min.js')}}" type="text/javascript"></script>
 </head>
 <div class="mt-4">
 <form id="myForm" action="{{url('/uploads')}}" method="post" enctype="multipart/form-data">
         @csrf
     <div class="input-group mb-3">
         <span class="input-group-text btn-secondary" id="basic-addon1">AN</span>
-        <input type="text" class="form-control" id='an' name="an" required>
+        <input type="text" class="form-control" id='an_search' name="an" required>
+        <input type="text" id='an' readonly>
     </div>
 
     <div class="form-file form-file-sm ">
@@ -104,5 +111,34 @@ document.getElementById("myForm").onkeypress = function(e) {
 
             showPDF(_OBJECT_URL);
         });
+
+    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+    $(document).ready(function(){
+
+      $( "#an_search" ).autocomplete({
+        source: function( request, response ) {
+          // Fetch data
+          $.ajax({
+            url:"{{url('/patients/getPatients')}}",
+            type: 'post',
+            dataType: "json",
+            data: {
+               _token: '{{csrf_token()}}',
+               search: request.term
+            },
+            success: function( data ) {
+               response( data );
+            }
+          });
+        },
+        select: function (event, ui) {
+           // Set selection
+           $('#an_search').val(ui.item.label); // display the selected text
+           $('#an').val(ui.item.value); // save selected id to input
+           return false;
+        }
+      });
+
+    });
     </script>
 @endsection

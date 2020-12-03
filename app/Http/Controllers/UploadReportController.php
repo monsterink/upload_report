@@ -7,6 +7,7 @@ use App\Models\Role;
 use App\Models\Patient;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Response;
 
@@ -116,6 +117,24 @@ class UploadReportController extends Controller
         }
         return redirect()->route('uploads');
     }
+    public function findAn(Request $request){
+        $data=Request::all();
+        $search=$data['search'];
+  
+        if($search == ''){
+           $patients = Patient::orderby('an','asc')->select('an','name')->limit(5)->get();
+        }else{
+           $patients = Patient::orderby('an','asc')->select('an','name')->where('an', 'like', '%' .$search . '%')->limit(5)->get();
+        }
+  
+        $response = array();
+        foreach($patients as $patient){
+           $response[] = array("value"=>($patient->name),"label"=>$patient->an);
+        }
+  
+        return response()->json($response);
+
+  }
 
     /**
      * Update the specified resource in storage.
