@@ -12,7 +12,7 @@
     
   </head>
   <body>
-
+  </style>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="/login">Upload-Report</a>

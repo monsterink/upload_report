@@ -37,7 +37,10 @@ table td {
       @csrf
       <td><select class="form-select form-select-sm" id="role" name="role">
             @foreach ($roles as $role) 
-            <option value="{{$role->id}}"{{ old('id') == $user->role ? "selected" :""}}>{{$role->role}}</option>
+            <option
+              value="{{$role->id}}"
+              {{ $user->role == $role->id ? 'selected':'' }}
+            >{{$role->role}}</option>
             @endforeach
       </select></td>
       <td><button type="submit" type="button" class="btn btn-primary">แก้ไข</button></td>

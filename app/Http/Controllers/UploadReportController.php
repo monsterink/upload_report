@@ -74,11 +74,12 @@ class UploadReportController extends Controller
     public function store()
     {
         $upload = new uploadfile;
+        $id=Auth::user()->id;
         $upload->an=Request::input('an');
         $upload->filename=Request::file('filereport')->getClientOriginalName();
         $upload->path = Request::file('filereport')->store('files');
         $upload->status = Request::input('status');
-        $upload->users_id = Request::input('users_id');
+        $upload->users_id =$id;
         $upload->save();
         return redirect()->route('uploads');
     }
@@ -103,11 +104,15 @@ class UploadReportController extends Controller
      */
     public function edit($upload_id)
     {
-        
+        if(Request::hasFile('filereport')){
         $upload=uploadfile::find($upload_id)
         ->update(['an' => Request::input('an'),
         'filename' => Request::file('filereport')->getClientOriginalName(),
         'path' => Request::file('filereport')->store('files')]);
+        }else{
+            $upload=uploadfile::find($upload_id)
+            ->update(['an' => Request::input('an')]);
+        }
         return redirect()->route('uploads');
     }
 

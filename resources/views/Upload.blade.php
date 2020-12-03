@@ -13,7 +13,7 @@
         <script src="{{ URL::asset('pdf.worker.js') }}"></script>
 </head>
 <div class="mt-4">
-<form action="{{url('/uploads')}}" method="post" enctype="multipart/form-data">
+<form id="myForm" action="{{url('/uploads')}}" method="post" enctype="multipart/form-data">
         @csrf
     <div class="input-group mb-3">
         <span class="input-group-text btn-secondary" id="basic-addon1">AN</span>
@@ -21,21 +21,29 @@
     </div>
 
     <div class="form-file form-file-sm ">
-        <button id="upload-dialog">Choose PDF</button>
-        <input class="form-control" type="file" id="pdf-file" name="filereport" accept="application/pdf" style="display:none" />
-        <div id="pdf-loader" style="display:none">Loading Preview ..</div>
-        <canvas id="pdf-preview" width="150" style="display:none"></canvas>
+        <input class="form-control" type="file" id="pdf-file" name="filereport" accept="application/pdf" style="display:none" />    
+        <button type="button" id="upload-dialog" class="btn btn-secondary">กรุณาเลือกไฟล์</button>
         <input type="hidden" id="status" name="status" value="Upload">
     </div>
 
-    <div class="mt-4 col-md-12 text-center">
-        <button type="submit" type="button" class="btn btn-primary">Upload File</button>
+    <div class="col-md-12 text-center">    
+        <div id="pdf-loader" style="display:none">Loading Preview ..</div>
+        <canvas id="pdf-preview" width="200" style="display:none"></canvas>
     </div>
 
-        <input type="hidden" id="id" name="users_id" value="{{Auth::user()->id}}">
+    <div class="col-md-12 text-center">
+        <button type="submit" id="submit" class="btn btn-primary">Upload File</button>
+    </div>
     </form>
 </div>
 <script>
+document.getElementById("myForm").onkeypress = function(e) {
+  var key = e.charCode || e.keyCode || 0;     
+  if (key == 13) {
+    // alert("I told you not to, why did you do it?");
+    e.preventDefault();
+  }
+}
         var _PDF_DOC;
         var _CANVAS = document.querySelector('#pdf-preview');
         var _OBJECT_URL;
