@@ -23,14 +23,15 @@ class UploadReportController extends Controller
     }
     public function index()
     {
-        // $user=User::all();
+        
+        // $users = uploadfile::join('users', 'users.id', '=', 'uploadfiles.users_id')
+        //     ->select('users.name')
+        //     ->get();
         $userId=Auth::user()->id;
         if(Auth::user()->role==1){
             $upload=uploadfile::where('users_id',$userId)->get();
-        }elseif(Auth::user()->role==2){
-            $upload=uploadfile::all();
         }else{
-            $upload=uploadfile::where('users_id',$userId)->get();
+            $upload=uploadfile::all();
         }
         
         return view('HomeDoctor', ['uploadfiles' => $upload]);
@@ -152,6 +153,22 @@ class UploadReportController extends Controller
      
         $fn = uploadfile::where('id',$id)
           ->update(['status' => 'Printing']);
+
+        $filename = '/app/'.$name;
+//return $filename;
+
+        $path = storage_path($filename);
+        return Response::make(file_get_contents($path), 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="'.$filename.'"'
+        ]);
+    }
+    public function preview($id)
+    {
+        //$fn=uploadfile::find($id);
+        $fn = uploadfile::select('path')->where('id',$id)->get();
+        $name= $fn[0]->path;
+        //$path = Storage::path('public/files')
 
         $filename = '/app/'.$name;
 //return $filename;

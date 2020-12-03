@@ -27,7 +27,7 @@
     </div>
 
     <div class="input-group mb-3">
-    <p><a href="{{url('/print/'.$uploadfiles->id)}}">{{$uploadfiles->filename}}</a></p>
+    <p><a href="{{url('/preview/'.$uploadfiles->id)}}" target="_blank">{{$uploadfiles->filename}}</a></p>
     </div>
 
     <div class="col-md-12 text-center">    

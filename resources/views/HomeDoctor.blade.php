@@ -19,6 +19,7 @@ table td {
       <th scope="col">ลำดับที่</th>
       <th scope="col">AN</th>
       <th scope="col">ชื่อ</th>
+      <!-- <th scope="col">แพทย์</th> -->
       <th scope="col">วันที่</th>
       <th scope="col">สถานะ</th>
     </tr>

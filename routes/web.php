@@ -30,6 +30,7 @@ Route::post('/uploads/role/{user_id}', 'App\Http\Controllers\UploadReportControl
 //Route::get('/upload_list', 'App\Http\Controllers\UploadReportController@homeDoctor');
 
 Route::get('/print/{upload_id}', 'App\Http\Controllers\UploadReportController@print');
+Route::get('/preview/{upload_id}', 'App\Http\Controllers\UploadReportController@preview');
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
