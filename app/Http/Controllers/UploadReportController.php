@@ -75,6 +75,7 @@ class UploadReportController extends Controller
      */
     public function store()
     {
+        if(Request::hasFile('filereport')){
         $upload = new uploadfile;
         $id=Auth::user()->id;
         $upload->an=Request::input('an');
@@ -83,7 +84,12 @@ class UploadReportController extends Controller
         $upload->status = Request::input('status');
         $upload->users_id =$id;
         $upload->save();
-        return redirect()->route('uploads');
+        Request::session()->flash('status', 'ส่งรายงานสำเร็จ!!');
+            return redirect()->route('uploads');
+        }else{
+        Request::session()->flash('status', 'กรุณาเลือกไฟล์!!');
+            return redirect()->route('create');
+        }
     }
 
     /**
@@ -115,7 +121,8 @@ class UploadReportController extends Controller
             $upload=uploadfile::find($upload_id)
             ->update(['an' => Request::input('an')]);
         }
-        return redirect()->route('uploads');
+        Request::session()->flash('status', 'แก้ไขรายงานสำเร็จ!!');
+            return redirect()->route('uploads');
     }
     public function findAn(Request $request){
         $data=Request::all();
@@ -149,7 +156,8 @@ class UploadReportController extends Controller
         // $role->role=Request::input('role');
         // return $role;
         $user=User::find($user_id)->update(['role' => Request::input('role')]);
-        return redirect()->route('role');
+        Request::session()->flash('status', 'อัพเดทเรียบร้อยแล้ว!!');
+            return redirect()->route('role');
     }
 
     /**
@@ -202,7 +210,9 @@ class UploadReportController extends Controller
     {
         $fn = uploadfile::where('id',$id)
           ->delete();
-          return redirect()->route('uploads'); 
+          Request::session()->flash('status', 'ลบรายงานสำเร็จ!!');
+            return redirect()->route('uploads'); 
+          
     }
     // public function preview($id)
     // {

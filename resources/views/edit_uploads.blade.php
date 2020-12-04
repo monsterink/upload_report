@@ -19,7 +19,7 @@
         <script src="{{asset('jqueryui/jquery-ui.min.js')}}" type="text/javascript"></script>
 </head>
 <div class="mt-4">
-<form id="myForm" action="{{url('/uploads/edit/'.$uploadfiles->id)}}" method="post" enctype="multipart/form-data">
+<form id="myForm" action="{{url('/uploads/edit/'.$uploadfiles->id)}}" method="post" enctype="multipart/form-data" onsubmit="myFunction()">
         @csrf
     <div class="input-group mb-3">
     <span class="input-group-text btn-secondary" id="basic-addon1">AN</span>

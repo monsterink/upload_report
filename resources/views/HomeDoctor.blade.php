@@ -13,6 +13,15 @@ table td {
 }
 </style>
 <div class="mt-4">
+@if(session()->has('status'))
+      <div class="row">
+      <div class="alert alert-success">
+        <button type="button" class="btn-close" data-dismiss="alert" aria-hidden="true"></button>
+        <!-- <strong>Notification</strong> -->
+        {{session()->get('status')}}
+      </div>
+      </div>
+      @endif
 <table class="table">
   <thead>
     <tr>

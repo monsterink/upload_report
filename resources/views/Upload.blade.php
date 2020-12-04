@@ -19,6 +19,15 @@
         <script src="{{asset('jqueryui/jquery-ui.min.js')}}" type="text/javascript"></script>
 </head>
 <div class="mt-4">
+@if(session()->has('status'))
+      <div class="row">
+      <div class="alert alert-danger">
+        <button type="button" class="btn-close" data-dismiss="alert" aria-hidden="true"></button>
+        <!-- <strong>Notification</strong> -->
+        {{session()->get('status')}}
+      </div>
+      </div>
+      @endif
     <form id="myForm" action="{{url('/uploads')}}" method="post" enctype="multipart/form-data">
             @csrf
         <div class="input-group mb-3">
@@ -46,7 +55,6 @@
         </div>
     </form>
 </div>
-
 <script>
     document.getElementById("myForm").onkeypress = function(e) {
         var key = e.charCode || e.keyCode || 0;     
