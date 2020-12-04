@@ -122,14 +122,14 @@ class UploadReportController extends Controller
         $search=$data['search'];
   
         if($search == ''){
-           $patients = Patient::orderby('an','asc')->select('an','name')->limit(5)->get();
+           $patients = Patient::orderby('an','asc')->limit(5)->get();
         }else{
-           $patients = Patient::orderby('an','asc')->select('an','name')->where('an', 'like', '%' .$search . '%')->limit(5)->get();
+           $patients = Patient::orderby('an','asc')->where('an', 'like', '%' .$search . '%')->limit(5)->get();
         }
   
         $response = array();
         foreach($patients as $patient){
-           $response[] = array("value"=>($patient->name),"label"=>$patient->an);
+           $response[] = array("value"=>('HN: '.$patient->hn.' || ชื่อ: '.$patient->name.' || อายุ: '.$patient->age),"label"=>$patient->an);
         }
   
         return response()->json($response);

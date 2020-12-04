@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Patient extends Model
 {
     use HasFactory;
-    protected $fillable = ['an','name','age'];
+    protected $fillable = ['an','hn','name','age'];
     public function uploadfile()
     {
         return $this->hasMany('App\Models\uploadfile');

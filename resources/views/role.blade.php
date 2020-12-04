@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title','Homepage')
+@section('title','Role')
 
 @section('sidebar')
     @parent
@@ -43,7 +43,7 @@ table td {
             >{{$role->role}}</option>
             @endforeach
       </select></td>
-      <td><button type="submit" type="button" class="btn btn-primary">แก้ไข</button></td>
+      <td><button type="submit" type="button" class="btn btn-primary">ยืนยัน</button></td>
       </form>
     </tr>
   </tbody>

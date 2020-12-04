@@ -44,7 +44,7 @@
           </span>
           <form action="{{url('/logout')}}" method="post">
             <input type="hidden" name="_token" value="{{csrf_token()}}">
-            <input class="btn btn-outline my-2 my-sm-0 bg-primary" type="submit" value="Logout">
+            <input class="btn btn-primary" type="submit" value="Logout">
           </form>
         </ul>
     @endif
