@@ -47,7 +47,7 @@
             <input class="btn btn-primary" type="submit" value="Logout">
           </form>
         </ul>
-    @endif
+      @endif
   </div>
     @if(Request::path() == 'login') 
       <ul class="nav justify-content-end">

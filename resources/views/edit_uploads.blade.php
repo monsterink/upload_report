@@ -19,35 +19,35 @@
         <script src="{{asset('jqueryui/jquery-ui.min.js')}}" type="text/javascript"></script>
 </head>
 <div class="mt-4">
-<form id="myForm" action="{{url('/uploads/edit/'.$uploadfiles->id)}}" method="post" enctype="multipart/form-data" onsubmit="myFunction()">
-        @csrf
-    <div class="input-group mb-3">
-    <span class="input-group-text btn-secondary" id="basic-addon1">AN</span>
-    <input type="text" class="form-control" id='an_search' name="an" value="{{$uploadfiles->an}}">
-    </div>
+    <form id="myForm" action="{{url('/uploads/edit/'.$uploadfiles->id)}}" method="post" enctype="multipart/form-data" onsubmit="myFunction()">
+            @csrf
+        <div class="input-group mb-3">
+            <span class="input-group-text btn-secondary" id="basic-addon1">AN</span>
+            <input type="text" class="form-control" id='an_search' name="an" value="{{$uploadfiles->an}}">
+        </div>
 
-    <div class="input-group mb-3">
+        <div class="input-group mb-3">
             <input type="text" class="form-control" id='an' readonly>
-    </div>
+        </div>
 
-    <div class="form-file form-file-sm ">
-        <input class="form-control" type="file" id="pdf-file" name="filereport" accept="application/pdf" style="display:none" />    
-        <button type="button" id="upload-dialog" class="btn btn-secondary">กรุณาเลือกไฟล์</button>
-        <input type="hidden" id="status" name="status" value="Upload">
-    </div>
+        <div class="form-file form-file-sm ">
+            <input class="form-control" type="file" id="pdf-file" name="filereport" accept="application/pdf" style="display:none" />    
+            <button type="button" id="upload-dialog" class="btn btn-secondary">กรุณาเลือกไฟล์</button>
+            <input type="hidden" id="status" name="status" value="Upload">
+        </div>
 
-    <div class="input-group mb-3">
-    <p><a href="{{url('/preview/'.$uploadfiles->id)}}" target="_blank">{{$uploadfiles->filename}}</a></p>
-    </div>
+        <div class="input-group mb-3">
+            <p><a href="{{url('/preview/'.$uploadfiles->id)}}" target="_blank">{{$uploadfiles->filename}}</a></p>
+        </div>
 
-    <div class="col-md-12 text-center">    
-        <div id="pdf-loader" style="display:none">Loading Preview ..</div>
-        <canvas id="pdf-preview" width="200" style="display:none"></canvas>
-    </div>
+        <div class="col-md-12 text-center">    
+            <div id="pdf-loader" style="display:none">Loading Preview ..</div>
+            <canvas id="pdf-preview" width="200" style="display:none"></canvas>
+        </div>
 
-    <div class="mt-4 col-md-12 text-center">
-    <button type="submit" type="button" class="btn btn-primary">Upload File</button>
-    </div>
+        <div class="mt-4 col-md-12 text-center">
+            <button type="submit" type="button" class="btn btn-primary">Upload File</button>
+        </div>
     </form>
 </div>
 <script>

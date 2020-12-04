@@ -19,44 +19,44 @@ table td {
 <div class="mt-4">
 @if(session()->has('status'))
       <div class="row">
-      <div class="alert alert-success">
-        <button type="button" class="btn-close" data-dismiss="alert" aria-hidden="true"></button>
-        <!-- <strong>Notification</strong> -->
-        {{session()->get('status')}}
+        <div class="alert alert-success">
+          <button type="button" class="btn-close" data-dismiss="alert" aria-hidden="true"></button>
+          <!-- <strong>Notification</strong> -->
+          {{session()->get('status')}}
+        </div>
       </div>
-      </div>
-      @endif
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">ลำดับที่</th>
-      <th scope="col">ชื่อ</th>
-      <th scope="col">E-mail</th>
-      <th scope="col">สถานะ</th>
-      <th scope="col"></th>
-    </tr>
-  </thead>
-  @foreach ($users as $key=>$user) 
-  <tbody>
-    <tr>
-      <th scope="row">{{$key+1}}</th>
-      <td>{{$user->name}}</td>
-      <td>{{$user->email}}</td>
-      <form action="{{url('/uploads/role/'.$user->id)}}" method="post" enctype="multipart/form-data">
-      @csrf
-      <td><select class="form-select form-select-sm" id="role" name="role">
-            @foreach ($roles as $role) 
-            <option
-              value="{{$role->id}}"
-              {{ $user->role == $role->id ? 'selected':'' }}
-            >{{$role->role}}</option>
-            @endforeach
-      </select></td>
-      <td><button type="submit" type="button" class="btn btn-primary">ยืนยัน</button></td>
-      </form>
-    </tr>
-  </tbody>
-  @endforeach
-</table>
+@endif
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ลำดับที่</th>
+        <th scope="col">ชื่อ</th>
+        <th scope="col">E-mail</th>
+        <th scope="col">สถานะ</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    @foreach ($users as $key=>$user) 
+    <tbody>
+      <tr>
+        <th scope="row">{{$key+1}}</th>
+        <td>{{$user->name}}</td>
+        <td>{{$user->email}}</td>
+        <form action="{{url('/uploads/role/'.$user->id)}}" method="post" enctype="multipart/form-data">
+        @csrf
+          <td><select class="form-select form-select-sm" id="role" name="role">
+                @foreach ($roles as $role) 
+                <option
+                  value="{{$role->id}}"
+                  {{ $user->role == $role->id ? 'selected':'' }}
+                >{{$role->role}}</option>
+                @endforeach
+          </select></td>
+          <td><button type="submit" type="button" class="btn btn-primary">ยืนยัน</button></td>
+        </form>
+      </tr>
+    </tbody>
+    @endforeach
+  </table>
 </div>
 @endsection

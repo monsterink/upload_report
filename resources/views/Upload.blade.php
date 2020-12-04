@@ -27,7 +27,7 @@
         {{session()->get('status')}}
       </div>
       </div>
-      @endif
+@endif
     <form id="myForm" action="{{url('/uploads')}}" method="post" enctype="multipart/form-data">
             @csrf
         <div class="input-group mb-3">

@@ -209,9 +209,9 @@ class UploadReportController extends Controller
     public function delete(Request $request, $id)
     {
         $fn = uploadfile::where('id',$id)
-          ->delete();
-          Request::session()->flash('status', 'ลบรายงานสำเร็จ!!');
-            return redirect()->route('uploads'); 
+        ->delete();
+        Request::session()->flash('status', 'ลบรายงานสำเร็จ!!');
+        return redirect()->route('uploads'); 
           
     }
     // public function preview($id)
