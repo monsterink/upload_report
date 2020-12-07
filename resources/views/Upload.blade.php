@@ -18,6 +18,13 @@
         <script src="{{URL::asset('jquery-3.3.1.min.js')}}" type="text/javascript"></script>
         <script src="{{asset('jqueryui/jquery-ui.min.js')}}" type="text/javascript"></script>
 </head>
+<style>
+.ui-autocomplete {
+    background: white;
+    border-radius: 0px;
+}
+}
+</style>
 <div class="mt-4">
 @if(session()->has('status'))
       <div class="row">
