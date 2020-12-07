@@ -27,7 +27,7 @@
         </div>
 
         <div class="input-group mb-3">
-            <input type="text" class="form-control" id='an' readonly>
+            <input type="text" class="form-control" id='an' value="HN: {{$patients->hn}} || ชื่อ: {{$patients->name}} || อายุ: {{$patients->age}}" readonly>
         </div>
 
         <div class="form-file form-file-sm ">
@@ -141,8 +141,11 @@ var _PDF_DOC;
             // Set selection
             $('#an_search').val(ui.item.label); // display the selected text
             $('#an').val(ui.item.value); // save selected id to input
-            return ui(data);
+            return false;
             }
+        });
+        document.getElementById("an_search").addEventListener('keydown', function (ui) {
+            return $('#an').val("");
         });
     });
 </script>

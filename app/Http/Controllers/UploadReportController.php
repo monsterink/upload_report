@@ -101,7 +101,9 @@ class UploadReportController extends Controller
     public function show($upload_id)
     {
         $upload=uploadfile::find($upload_id);
-        return view('edit_uploads', ['uploadfiles' => $upload]);
+        $patient=uploadfile::find($upload_id)->Patient;
+        \Log::info($patient);
+        return view('edit_uploads', ['uploadfiles' => $upload,'patients' => $patient]);
     }
 
     /**
@@ -124,6 +126,7 @@ class UploadReportController extends Controller
         Request::session()->flash('status', 'แก้ไขรายงานสำเร็จ!!');
             return redirect()->route('uploads');
     }
+
     public function findAn(Request $request){
         $data=Request::all();
         $search=$data['search'];

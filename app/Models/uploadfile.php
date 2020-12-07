@@ -23,6 +23,6 @@ class uploadfile extends Model
     }
     public function Patient()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo('App\Models\Patient','an','an');
     }
 }

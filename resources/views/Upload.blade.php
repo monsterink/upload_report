@@ -126,7 +126,6 @@
         
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
         $(document).ready(function(){
-
         $( "#an_search" ).autocomplete({
                 source: function( request, response ) {
                 // Fetch data
@@ -143,11 +142,11 @@
                     }
                 });
             },
-            select: function (event, ui ) {
+            select: function (event, ui) {
             // Set selection
-            var search=$('#an_search').val(ui.item.label); // display the selected text
-            var an=$('#an').val(ui.item.value); // save selected id to input
-            return ui(data);
+            $('#an_search').val(ui.item.label); // display the selected text
+            $('#an').val(ui.item.value); // save selected id to input
+            return false;
             }
         });
         // document.getElementById("an_search").addEventListener("search", function(event, ui) {
