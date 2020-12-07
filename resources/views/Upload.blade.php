@@ -123,7 +123,7 @@
 
                 showPDF(_OBJECT_URL);
             });
-
+        
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
         $(document).ready(function(){
 
@@ -143,12 +143,19 @@
                     }
                 });
             },
-            select: function (event, ui) {
+            select: function (event, ui ) {
             // Set selection
-            $('#an_search').val(ui.item.label); // display the selected text
-            $('#an').val(ui.item.value); // save selected id to input
+            var search=$('#an_search').val(ui.item.label); // display the selected text
+            var an=$('#an').val(ui.item.value); // save selected id to input
             return ui(data);
             }
+        });
+        // document.getElementById("an_search").addEventListener("search", function(event, ui) {
+        // $("#an").val("");
+        // return ui(data);
+        // });
+        document.getElementById("an_search").addEventListener('keydown', function (ui) {
+            return $('#an').val("");
         });
     });
 </script>
