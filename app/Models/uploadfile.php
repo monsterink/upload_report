@@ -15,7 +15,7 @@ class uploadfile extends Model
                         'users_id'];
     public function User()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo('App\Models\User','users_id','id');
     }
     public function Role()
     {

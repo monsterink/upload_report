@@ -27,6 +27,7 @@ table td {
       <tr>
         <th scope="col">ลำดับที่</th>
         <th scope="col">AN</th>
+        <th scope="col">แพทย์</th>
         <th scope="col">ชื่อ</th>
         <!-- <th scope="col">แพทย์</th> -->
         <th scope="col">วันที่</th>
@@ -39,6 +40,7 @@ table td {
           <tr>
             <th>{{$key+1}}</th>
             <td><!--<a href="{{url('/upload_list/'.$uploadfile->id)}}" target="_blank" role="button">-->{{$uploadfile->an}}</td>
+            <td>{{$uploadfile->User->name}}</td>
             <td>{{$uploadfile->filename}}</td>
             <td>{{$uploadfile->created_at}}</td>
             <td>{{$uploadfile->status}}</td>

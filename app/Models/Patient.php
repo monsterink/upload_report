@@ -11,6 +11,6 @@ class Patient extends Model
     protected $fillable = ['an','hn','name','age'];
     public function uploadfile()
     {
-        return $this->hasMany('App\Models\uploadfile','an','an');
+        return $this->hasOne('App\Models\uploadfile','an','an');
     }
 }

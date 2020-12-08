@@ -29,11 +29,15 @@ class UploadReportController extends Controller
         //     ->select('users.name')
         //     ->get();
         $userId=Auth::user()->id;
+        \Log::info($userId);
         if(Auth::user()->role==1){
             $upload=uploadfile::where('users_id',$userId)->get();
+            // $nameuser=uploadfile::find($userId)->User;
         }else{
             $upload=uploadfile::all();
+            // $nameuser=uploadfile::where('users_id','!=',$userId)->User;
         }
+        
         
         return view('HomeDoctor', ['uploadfiles' => $upload]);
     }
@@ -102,7 +106,6 @@ class UploadReportController extends Controller
     {
         $upload=uploadfile::find($upload_id);
         $patient=uploadfile::find($upload_id)->Patient;
-        \Log::info($patient);
         return view('edit_uploads', ['uploadfiles' => $upload,'patients' => $patient]);
     }
 

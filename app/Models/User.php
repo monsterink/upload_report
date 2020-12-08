@@ -44,6 +44,6 @@ class User extends Authenticatable
     ];
     public function uploadfile()
     {
-        return $this->hasMany('App\Models\uploadfile');
+        return $this->hasOne('App\Models\uploadfile','users_id');
     }
 }
