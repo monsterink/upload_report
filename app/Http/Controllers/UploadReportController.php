@@ -67,8 +67,7 @@ class UploadReportController extends Controller
     public function create()
     {
         $upload=uploadfile::all();
-        $patient=Patient::all();
-        return view('Upload', ['uploadfiles' => $upload,'patients' => $patient]);
+        return view('Upload', ['uploadfiles' => $upload]);
     }
 
     /**
@@ -79,6 +78,10 @@ class UploadReportController extends Controller
      */
     public function store()
     {
+        // $validatedData = $request->validate([
+        //     'an' => 'required|unique|max:8|min:8',
+        // ]);
+        // return $errors;
         if(Request::hasFile('filereport')){
         $upload = new uploadfile;
         $id=Auth::user()->id;
@@ -105,8 +108,7 @@ class UploadReportController extends Controller
     public function show($upload_id)
     {
         $upload=uploadfile::find($upload_id);
-        $patient=uploadfile::find($upload_id)->Patient;
-        return view('edit_uploads', ['uploadfiles' => $upload,'patients' => $patient]);
+        return view('edit_uploads', ['uploadfiles' => $upload]);
     }
 
     /**
@@ -130,24 +132,44 @@ class UploadReportController extends Controller
             return redirect()->route('uploads');
     }
 
-    public function findAn(Request $request){
+    public function findAnUploads(Request $request){
         $data=Request::all();
+        // \Log::info($data);
         $search=$data['search'];
   
-        if($search == ''){
-           $patients = Patient::orderby('an','asc')->limit(5)->get();
+        
+           $patients = Patient::where('an',$search)->get();
+  
+        // $response = array();
+        // foreach($patients as $patient){
+        //    $response[] = array("value"=>('HN: '.$patient->hn.' || ชื่อ: '.$patient->name.' || อายุ: '.$patient->age),"label"=>$patient->an);
+        // }
+        if(count($patients) == 0){
+            Request::session()->flash('status', 'ไม่พบรายชื่อผู้ป่วย');
+            return redirect()->route('create');
         }else{
-           $patients = Patient::orderby('an','asc')->where('an', 'like', '%' .$search . '%')->limit(5)->get();
+            return view('Upload', ['patients' => $patients]);
         }
-  
-        $response = array();
-        foreach($patients as $patient){
-           $response[] = array("value"=>('HN: '.$patient->hn.' || ชื่อ: '.$patient->name.' || อายุ: '.$patient->age),"label"=>$patient->an);
-        }
-  
-        return response()->json($response);
-
   }
+    public function findAnEdit(Request $request,$upload_id){
+        // $data=Request::all();
+        // \Log::info($data);
+        $search=Request::input('search');
+        // \Log::info($search);
+        $upload=uploadfile::find($upload_id);
+        $patients = Patient::where('an',$search)->get();
+
+        // $response = array();
+        // foreach($patients as $patient){
+        //    $response[] = array("value"=>('HN: '.$patient->hn.' || ชื่อ: '.$patient->name.' || อายุ: '.$patient->age),"label"=>$patient->an);
+        // }
+        if(count($patients) == 0){
+            Request::session()->flash('status', 'ไม่พบรายชื่อผู้ป่วย');
+            return redirect()->back();
+        }else{
+            return view('edit_uploads', ['uploadfiles' => $upload,'patients' => $patients]);
+        }
+}
 
     /**
      * Update the specified resource in storage.

@@ -35,17 +35,34 @@
       </div>
       </div>
 @endif
+    <form id="searchForm" action="{{url('/uploads/create/an')}}" method="post" enctype="multipart/form-data"> 
+        @csrf
+        <div class="input-group mb-3">
+            <span class="input-group-text btn-secondary" id="basic-addon1">AN</span>
+            @if(isset($patients))
+            @foreach($patients as $patient)
+            <input type="text" class="form-control" id="an_search" value="{{$patient->an}}" name="search" required>
+            @endforeach
+            @endif
+            @if(isset($patients)=='')
+            <input type="text" class="form-control" id="an_search" name="search" required>
+            @endif
+            <button type="submit" id="submit" class="btn btn-success">ค้นหา</button>
+        </div>
+    </form>
+
     <form id="myForm" action="{{url('/uploads')}}" method="post" enctype="multipart/form-data">
             @csrf
         <div class="input-group mb-3">
-            <span class="input-group-text btn-secondary" id="basic-addon1">AN</span>
-            <input type="text" class="form-control" id='an_search' name="an" required>
-        </div>
-        
-        <div class="input-group mb-3">
-            <input type="text" class="form-control" id='an' readonly>
-        </div>
-
+        @if(isset($patients))
+        @foreach($patients as $patient)
+        <input type="text" name="an" style="display:none" value="{{$patient->an}}">
+                HN: {{$patient->hn}}<br>
+                ชื่อ: {{$patient->name}}<br>
+                อายุ: {{$patient->age}}
+            @endforeach
+            @endif
+        </div>    
         <div class="col-md-12 text-center">    
             <div id="pdf-loader" style="display:none">Loading Preview ..</div>
             <canvas id="pdf-preview" width="250" style="display:none"></canvas>
@@ -131,38 +148,38 @@
                 showPDF(_OBJECT_URL);
             });
         
-        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-        $(document).ready(function(){
-        $( "#an_search" ).autocomplete({
-                source: function( request, response ) {
-                // Fetch data
-                $.ajax({
-                    url:"{{url('/patients/getPatients')}}",
-                    type: 'post',
-                    dataType: "json",
-                    data: {
-                    _token: '{{csrf_token()}}',
-                    search: request.term
-                    },
-                    success: function( data ) {
-                    response( data );
-                    }
-                });
-            },
-            select: function (event, ui) {
-            // Set selection
-            $('#an_search').val(ui.item.label); // display the selected text
-            $('#an').val(ui.item.value); // save selected id to input
-            return false;
-            }
-        });
-        // document.getElementById("an_search").addEventListener("search", function(event, ui) {
-        // $("#an").val("");
-        // return ui(data);
+    //     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+    //     $(document).ready(function(){
+    //     $( "#an_search" ).autocomplete({
+    //             source: function( request, response ) {
+    //             // Fetch data
+    //             $.ajax({
+    //                 url:"{{url('/patients/getPatients')}}",
+    //                 type: 'post',
+    //                 dataType: "json",
+    //                 data: {
+    //                 _token: '{{csrf_token()}}',
+    //                 search: request.term
+    //                 },
+    //                 success: function( data ) {
+    //                 response( data );
+    //                 }
+    //             });
+    //         },
+    //         select: function (event, ui) {
+    //         // Set selection
+    //         $('#an_search').val(ui.item.label); // display the selected text
+    //         $('#an').val(ui.item.value); // save selected id to input
+    //         return false;
+    //         }
+    //     });
+    //     // document.getElementById("an_search").addEventListener("search", function(event, ui) {
+    //     // $("#an").val("");
+    //     // return ui(data);
+    //     // });
+        // document.getElementById("an_search").addEventListener('keydown', function (ui) {
+        //     return $('span').val("");
         // });
-        document.getElementById("an_search").addEventListener('keydown', function (ui) {
-            return $('#an').val("");
-        });
-    });
+    // });
 </script>
 @endsection

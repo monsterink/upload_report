@@ -22,12 +22,13 @@ Route::get('/delete/{upload_id}', 'App\Http\Controllers\UploadReportController@d
 Route::get('/uploads/create', 'App\Http\Controllers\UploadReportController@create')->name('create');
 Route::post('/uploads', 'App\Http\Controllers\UploadReportController@store');
 
-Route::get('/uploads/edit/{upload_id}', 'App\Http\Controllers\UploadReportController@show');
+Route::get('/uploads/edit/{upload_id}', 'App\Http\Controllers\UploadReportController@show')->name('show');;
 Route::post('/uploads/edit/{upload_id}', 'App\Http\Controllers\UploadReportController@edit');
 
-Route::post('/patients/getPatients','App\Http\Controllers\UploadReportController@findAn');
+Route::post('/uploads/create/an','App\Http\Controllers\UploadReportController@findAnUploads');
+Route::post('/uploads/edit/an/{upload_id}','App\Http\Controllers\UploadReportController@findAnEdit');
 
-Route::get('/uploads/role/', 'App\Http\Controllers\UploadReportController@role')->name('role');
+Route::get('/uploads/role', 'App\Http\Controllers\UploadReportController@role')->name('role');
 Route::post('/uploads/role/{user_id}', 'App\Http\Controllers\UploadReportController@update');
 //Route::get('/upload_list', 'App\Http\Controllers\UploadReportController@homeDoctor');
 

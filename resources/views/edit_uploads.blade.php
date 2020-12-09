@@ -19,17 +19,49 @@
         <script src="{{asset('jqueryui/jquery-ui.min.js')}}" type="text/javascript"></script>
 </head>
 <div class="mt-4">
+    @if(session()->has('status'))
+        <div class="row">
+        <div class="alert alert-danger">
+            <button type="button" class="btn-close" data-dismiss="alert" aria-hidden="true"></button>
+            <!-- <strong>Notification</strong> -->
+            {{session()->get('status')}}
+        </div>
+        </div>
+    @endif
+    <form id="searchForm" action="{{url('/uploads/edit/an/'.$uploadfiles->id)}}" method="post" enctype="multipart/form-data"> 
+            @csrf
+            <div class="input-group mb-3">
+                <span class="input-group-text btn-secondary" id="basic-addon1">AN</span>
+                @if(isset($patients))
+                @foreach($patients as $patient)
+                <input type="text" class="form-control" id="an_search" value="{{$patient->an}}" name="search" required>
+                @endforeach
+                @endif
+                @if(isset($patients)=='')
+                <input type="text" class="form-control" id='an_search' name="search" value="{{$uploadfiles->an}}" required>
+                @endif
+                
+                <button type="submit" id="submit" class="btn btn-success">ค้นหา</button>
+            </div>
+    </form>
     <form id="myForm" action="{{url('/uploads/edit/'.$uploadfiles->id)}}" method="post" enctype="multipart/form-data" onsubmit="myFunction()">
             @csrf
         <div class="input-group mb-3">
-            <span class="input-group-text btn-secondary" id="basic-addon1">AN</span>
-            <input type="text" class="form-control" id='an_search' name="an" value="{{$uploadfiles->an}}">
-        </div>
-
-        <div class="input-group mb-3">
-            <input type="text" class="form-control" id='an' value="HN: {{$patients->hn}} || ชื่อ: {{$patients->name}} || อายุ: {{$patients->age}}" readonly>
-        </div>
-
+        @if(isset($patients)=='')
+        <input type="text" name="an" style="display:none" value="{{$uploadfiles->an}}">
+                HN: {{$uploadfiles->Patient->hn}}<br>
+                ชื่อ: {{$uploadfiles->Patient->name}}<br>
+                อายุ: {{$uploadfiles->Patient->age}}
+        @endif        
+       @if(isset($patients))
+        @foreach($patients as $patient)
+        <input type="text" name="an" style="display:none" value="{{$patient->an}}">
+                HN: {{$patient->hn}}<br>
+                ชื่อ: {{$patient->name}}<br>
+                อายุ: {{$patient->age}}
+        @endforeach
+        @endif 
+        </div>  
         <div class="form-file form-file-sm ">
             <input class="form-control" type="file" id="pdf-file" name="filereport" accept="application/pdf" style="display:none" />    
             <button type="button" id="upload-dialog" class="btn btn-secondary">กรุณาเลือกไฟล์</button>
