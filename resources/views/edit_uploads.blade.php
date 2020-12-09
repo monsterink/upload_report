@@ -46,7 +46,7 @@
     </form>
     <form id="myForm" action="{{url('/uploads/edit/'.$uploadfiles->id)}}" method="post" enctype="multipart/form-data" onsubmit="myFunction()">
         @csrf
-            <div class="input-group mb-3">
+            <div class="input-group shadow p-3 mb-5 bg-white rounded">
                 @if(isset($patients)=='')
                     <input type="text" name="an" style="display:none" value="{{$uploadfiles->an}}">
                     HN: {{$uploadfiles->Patient->hn}}<br>

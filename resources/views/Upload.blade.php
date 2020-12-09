@@ -41,7 +41,7 @@
                 <span class="input-group-text btn-secondary" id="basic-addon1">AN</span>
                 @if(isset($patients))
                     @foreach($patients as $patient)
-                        <input type="text" class="form-control" id="an_search" value="{{$patient->an}}" name="search" required>
+                        <input type="text" class="form-control " id="an_search" value="{{$patient->an}}" name="search" required>
                     @endforeach
                 @endif
                 @if(isset($patients)=='')
@@ -53,16 +53,16 @@
 
     <form id="myForm" action="{{url('/uploads')}}" method="post" enctype="multipart/form-data">
         @csrf
-            <div class="input-group mb-3">
                 @if(isset($patients))
+                <div class="input-group shadow p-3 mb-5 bg-white rounded">
                     @foreach($patients as $patient)
                         <input type="text" name="an" style="display:none" value="{{$patient->an}}">
                         HN: {{$patient->hn}}<br>
                         ชื่อ: {{$patient->name}}<br>
                         อายุ: {{$patient->age}}
                     @endforeach
-                @endif
-            </div>    
+                    </div>  
+                @endif  
             <div class="col-md-12 text-center">    
                 <div id="pdf-loader" style="display:none">Loading Preview ..</div>
                 <canvas id="pdf-preview" width="250" style="display:none"></canvas>
