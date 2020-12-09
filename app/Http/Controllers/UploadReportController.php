@@ -82,7 +82,7 @@ class UploadReportController extends Controller
         //     'an' => 'required|unique|max:8|min:8',
         // ]);
         // return $errors;
-        if(Request::hasFile('filereport')){
+        if(Request::hasFile('filereport')&&Request::hasFile('an')){
         $upload = new uploadfile;
         $id=Auth::user()->id;
         $upload->an=Request::input('an');
@@ -94,7 +94,7 @@ class UploadReportController extends Controller
         Request::session()->flash('status', 'ส่งรายงานสำเร็จ!!');
             return redirect()->route('uploads');
         }else{
-        Request::session()->flash('status', 'กรุณาเลือกไฟล์!!');
+        Request::session()->flash('status', 'กรุณากรอกข้อมูลหรือเลือกไฟล์!!');
             return redirect()->route('create');
         }
     }
@@ -164,8 +164,8 @@ class UploadReportController extends Controller
         //    $response[] = array("value"=>('HN: '.$patient->hn.' || ชื่อ: '.$patient->name.' || อายุ: '.$patient->age),"label"=>$patient->an);
         // }
         if(count($patients) == 0){
-            Request::session()->flash('status', 'ไม่พบรายชื่อผู้ป่วย');
-            return redirect()->back();
+            Request::session()->flash('edit', 'ไม่พบรายชื่อผู้ป่วย');
+            return view('edit_uploads', ['uploadfiles' => $upload]);
         }else{
             return view('edit_uploads', ['uploadfiles' => $upload,'patients' => $patients]);
         }

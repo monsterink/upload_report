@@ -19,15 +19,15 @@ class CreateRolesTable extends Migration
             $table->timestamps();
         });
         $roles = array(
+            ['role' => 'Default'],
             ['role' => 'นักศึกษาแพทย์'],
             ['role' => 'เจ้าหน้าที่'],
-            ['role' => 'Admin']
+            ['role' => 'Admin'],
         );
         foreach($roles as $role){
             Role::create($role);
         }
     }
-
     /**
      * Reverse the migrations.
      *

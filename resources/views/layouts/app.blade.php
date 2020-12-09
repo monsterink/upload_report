@@ -27,12 +27,12 @@
           <a class="nav-link" aria-current="page" href="/uploads">Home</a>
         </li>
       @endif
-      @if(Request::path() != 'uploads/create' && Auth::user()->role=='1')
+      @if(Request::path() != 'uploads/create' && Auth::user()->role=='2')
         <li class="nav-item">
           <a class="nav-link " href="/uploads/create">Upload</a>
         </li>
       @endif
-      @if(Request::path() != 'uploads/role' && Auth::user()->role=='3')
+      @if(Request::path() != 'uploads/role' && Auth::user()->role=='4')
         <li class="nav-item">
           <a class="nav-link " href="/uploads/role">Role</a>
         </li>

@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title','Logout')
+
 @section('content')
 <div class="container">
     <div class="mt-4">

@@ -22,7 +22,7 @@ Route::get('/delete/{upload_id}', 'App\Http\Controllers\UploadReportController@d
 Route::get('/uploads/create', 'App\Http\Controllers\UploadReportController@create')->name('create');
 Route::post('/uploads', 'App\Http\Controllers\UploadReportController@store');
 
-Route::get('/uploads/edit/{upload_id}', 'App\Http\Controllers\UploadReportController@show')->name('show');;
+Route::get('/uploads/edit/{upload_id}', 'App\Http\Controllers\UploadReportController@show')->name('show');
 Route::post('/uploads/edit/{upload_id}', 'App\Http\Controllers\UploadReportController@edit');
 
 Route::post('/uploads/create/an','App\Http\Controllers\UploadReportController@findAnUploads');

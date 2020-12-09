@@ -18,65 +18,65 @@
         <script src="{{URL::asset('jquery-3.3.1.min.js')}}" type="text/javascript"></script>
         <script src="{{asset('jqueryui/jquery-ui.min.js')}}" type="text/javascript"></script>
 </head>
-<style>
+<!-- <style>
 .ui-autocomplete {
     background: white;
     border-radius: 0px;
 }
 }
-</style>
+</style> -->
 <div class="mt-4">
 @if(session()->has('status'))
       <div class="row">
-      <div class="alert alert-danger">
-        <button type="button" class="btn-close" data-dismiss="alert" aria-hidden="true"></button>
-        <!-- <strong>Notification</strong> -->
-        {{session()->get('status')}}
-      </div>
+        <div class="alert alert-danger">
+            <button type="button" class="btn-close" data-dismiss="alert" aria-hidden="true"></button>
+            <!-- <strong>Notification</strong> -->
+            {{session()->get('status')}}
+        </div>
       </div>
 @endif
     <form id="searchForm" action="{{url('/uploads/create/an')}}" method="post" enctype="multipart/form-data"> 
         @csrf
-        <div class="input-group mb-3">
-            <span class="input-group-text btn-secondary" id="basic-addon1">AN</span>
-            @if(isset($patients))
-            @foreach($patients as $patient)
-            <input type="text" class="form-control" id="an_search" value="{{$patient->an}}" name="search" required>
-            @endforeach
-            @endif
-            @if(isset($patients)=='')
-            <input type="text" class="form-control" id="an_search" name="search" required>
-            @endif
-            <button type="submit" id="submit" class="btn btn-success">ค้นหา</button>
-        </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text btn-secondary" id="basic-addon1">AN</span>
+                @if(isset($patients))
+                    @foreach($patients as $patient)
+                        <input type="text" class="form-control" id="an_search" value="{{$patient->an}}" name="search" required>
+                    @endforeach
+                @endif
+                @if(isset($patients)=='')
+                    <input type="text" class="form-control" id="an_search" name="search" required>
+                @endif
+                <button type="submit" id="submit" class="btn btn-success">ค้นหา</button>
+            </div>
     </form>
 
     <form id="myForm" action="{{url('/uploads')}}" method="post" enctype="multipart/form-data">
-            @csrf
-        <div class="input-group mb-3">
-        @if(isset($patients))
-        @foreach($patients as $patient)
-        <input type="text" name="an" style="display:none" value="{{$patient->an}}">
-                HN: {{$patient->hn}}<br>
-                ชื่อ: {{$patient->name}}<br>
-                อายุ: {{$patient->age}}
-            @endforeach
-            @endif
-        </div>    
-        <div class="col-md-12 text-center">    
-            <div id="pdf-loader" style="display:none">Loading Preview ..</div>
-            <canvas id="pdf-preview" width="250" style="display:none"></canvas>
-        </div>
+        @csrf
+            <div class="input-group mb-3">
+                @if(isset($patients))
+                    @foreach($patients as $patient)
+                        <input type="text" name="an" style="display:none" value="{{$patient->an}}">
+                        HN: {{$patient->hn}}<br>
+                        ชื่อ: {{$patient->name}}<br>
+                        อายุ: {{$patient->age}}
+                    @endforeach
+                @endif
+            </div>    
+            <div class="col-md-12 text-center">    
+                <div id="pdf-loader" style="display:none">Loading Preview ..</div>
+                <canvas id="pdf-preview" width="250" style="display:none"></canvas>
+            </div>
 
-        <div class="form-file form-file-sm ">
-            <input class="form-control" type="file" id="pdf-file" name="filereport" accept="application/pdf" style="display:none" />    
-            <button type="button" id="upload-dialog" class="btn btn-secondary">กรุณาเลือกไฟล์</button>
-            <input type="hidden" id="status" name="status" value="Upload">
-        </div>
+            <div class="form-file form-file-sm ">
+                <input class="form-control" type="file" id="pdf-file" name="filereport" accept="application/pdf" style="display:none" />    
+                <button type="button" id="upload-dialog" class="btn btn-secondary">กรุณาเลือกไฟล์</button>
+                <input type="hidden" id="status" name="status" value="Upload">
+            </div>
 
-        <div class="col-md-12 text-center">
-            <button type="submit" id="submit" class="btn btn-primary">Upload File</button>
-        </div>
+            <div class="col-md-12 text-center">
+                <button type="submit" id="submit" class="btn btn-primary">Upload File</button>
+            </div>
     </form>
 </div>
 <script>
