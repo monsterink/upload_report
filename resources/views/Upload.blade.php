@@ -56,7 +56,7 @@
                 @if(isset($patients))
                 <div class="input-group shadow p-3 mb-5 bg-white rounded">
                     @foreach($patients as $patient)
-                        <input type="text" name="an" style="display:none" value="{{$patient->an}}">
+                        <input type="text" name="an" style="display:none" value="{{$patient->an}}" required>
                         HN: {{$patient->hn}}<br>
                         ชื่อ: {{$patient->name}}<br>
                         อายุ: {{$patient->age}}

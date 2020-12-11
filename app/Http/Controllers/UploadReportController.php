@@ -82,7 +82,7 @@ class UploadReportController extends Controller
         //     'an' => 'required|unique|max:8|min:8',
         // ]);
         // return $errors;
-        if(Request::hasFile('filereport')&&Request::hasFile('an')){
+        if(Request::hasFile('filereport')){
         $upload = new uploadfile;
         $id=Auth::user()->id;
         $upload->an=Request::input('an');
