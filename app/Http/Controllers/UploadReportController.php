@@ -30,7 +30,7 @@ class UploadReportController extends Controller
         //     ->get();
         $userId=Auth::user()->id;
         \Log::info($userId);
-        if(Auth::user()->role==1){
+        if(Auth::user()->role==2){
             $upload=uploadfile::where('users_id',$userId)->get();
             // $nameuser=uploadfile::find($userId)->User;
         }else{
@@ -78,11 +78,11 @@ class UploadReportController extends Controller
      */
     public function store()
     {
-        // $validatedData = $request->validate([
-        //     'an' => 'required|unique|max:8|min:8',
-        // ]);
-        // return $errors;
-        if(Request::hasFile('filereport')&&Request::hasFile('an')){
+        $validatedData = Request::validate([
+            'an' => 'required',
+        ]);
+        
+        if(Request::hasFile('filereport')){
         $upload = new uploadfile;
         $id=Auth::user()->id;
         $upload->an=Request::input('an');

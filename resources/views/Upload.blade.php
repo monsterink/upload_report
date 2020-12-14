@@ -35,6 +35,7 @@
         </div>
       </div>
 @endif
+
     <form id="searchForm" action="{{url('/uploads/create/an')}}" method="post" enctype="multipart/form-data"> 
         @csrf
             <div class="input-group mb-3">
