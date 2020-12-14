@@ -48,7 +48,7 @@
                 @if(isset($patients)=='')
                     <input type="text" class="form-control" id="an_search" name="search" required>
                 @endif
-                <button type="submit" id="submit" class="btn btn-success">ค้นหา</button>
+                <button type="submit" id="submit" class="btn btn-success">Search</button>
             </div>
     </form>
 
@@ -71,12 +71,12 @@
 
             <div class="form-file form-file-sm ">
                 <input class="form-control" type="file" id="pdf-file" name="filereport" accept="application/pdf" style="display:none" />    
-                <button type="button" id="upload-dialog" class="btn btn-secondary">กรุณาเลือกไฟล์</button>
+                <button type="button" id="upload-dialog" class="btn btn-secondary">Choose File</button>
                 <input type="hidden" id="status" name="status" value="Upload">
             </div>
 
             <div class="col-md-12 text-center">
-                <button type="submit" id="submit" class="btn btn-primary">Upload File</button>
+                <button type="submit" id="submit" class="btn btn-primary">Save</button>
             </div>
     </form>
 </div>

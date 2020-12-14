@@ -32,7 +32,7 @@ table td {
         <th scope="col">ลำดับที่</th>
         <th scope="col">ชื่อ</th>
         <th scope="col">E-mail</th>
-        <th scope="col">สถานะ</th>
+        <th scope="col">สิทธิการเข้าถึง</th>
         <th scope="col"></th>
       </tr>
     </thead>

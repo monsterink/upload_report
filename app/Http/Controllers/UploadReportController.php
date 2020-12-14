@@ -207,7 +207,7 @@ class UploadReportController extends Controller
         //$path = Storage::path('public/files');
      
         $fn = uploadfile::where('id',$id)
-          ->update(['status' => 'Printing']);
+          ->update(['status' => 'Printed']);
 
         $filename = '/app/'.$name;
 //return $filename;
@@ -234,10 +234,10 @@ class UploadReportController extends Controller
             'Content-Disposition' => 'inline; filename="'.$filename.'"'
         ]);
     }
-    public function delete(Request $request, $id)
+    public function delete($id)
     {
-        $fn = uploadfile::where('id',$id)
-        ->delete();
+        $fn = uploadfile::find($id)
+        ->update(['status'=>'Deleted']);
         Request::session()->flash('status', 'ลบรายงานสำเร็จ!!');
         return redirect()->route('uploads'); 
           
