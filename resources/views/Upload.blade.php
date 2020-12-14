@@ -72,7 +72,7 @@
             <div class="form-file form-file-sm ">
                 <input class="form-control" type="file" id="pdf-file" name="filereport" accept="application/pdf" style="display:none" />    
                 <button type="button" id="upload-dialog" class="btn btn-secondary">Choose File</button>
-                <input type="hidden" id="status" name="status" value="Upload">
+                <input type="hidden" id="status" name="status" value="Uploaded">
             </div>
 
             <div class="col-md-12 text-center">
