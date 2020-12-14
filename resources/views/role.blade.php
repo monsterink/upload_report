@@ -27,6 +27,9 @@ table td {
         </div>
   @endif
   <table class="table">
+  <div>
+  <a class="btn btn-primary" href="{{url('/addRole')}}" role="button">เพิ่มสิทธิ์การเข้าถึง</a>
+  </div>
     <thead>
       <tr>
         <th scope="col">ลำดับที่</th>
@@ -52,7 +55,7 @@ table td {
                     >{{$role->role}}</option>
                   @endforeach
               </select></td>
-            <td><button type="submit" type="button" class="btn btn-primary">ยืนยัน</button></td>
+            <td><button type="submit" type="button" class="btn btn-success">ยืนยัน</button></td>
           </form>
         </tr>
       </tbody>

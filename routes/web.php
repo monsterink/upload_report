@@ -37,3 +37,8 @@ Route::get('/preview/{upload_id}', 'App\Http\Controllers\UploadReportController@
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('addRole', function () {
+    return view('AddRole');
+});
+Route::post('/addRole', 'App\Http\Controllers\UploadReportController@addRole');

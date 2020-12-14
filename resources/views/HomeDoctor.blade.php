@@ -49,6 +49,7 @@ table td {
             @endif
             @if ($uploadfile->status=='Printed')
             <br>{{$uploadfile->updated_at}}
+            <!-- <br>ผู้พิมพ์ : {{$uploadfile->user_id_print}} -->
             @endif
             </td>
 

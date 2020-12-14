@@ -202,12 +202,14 @@ class UploadReportController extends Controller
     public function print($id)
     {
         //$fn=uploadfile::find($id);
+        $userid=Auth::user()->id;
         $fn = uploadfile::select('path')->where('id',$id)->get();
         $name= $fn[0]->path;
         //$path = Storage::path('public/files');
      
         $fn = uploadfile::where('id',$id)
-          ->update(['status' => 'Printed']);
+          ->update(['status' => 'Printed','user_id_print' => $userid]);
+          \Log::info($fn);
 
         $filename = '/app/'.$name;
 //return $filename;
@@ -255,4 +257,12 @@ class UploadReportController extends Controller
     //         'Content-Disposition' => 'inline; filename="'.$filename.'"'
     //     ]);
     // }
+    public function addRole()
+        {
+        $add = new Role;
+        $add->role=Request::input('addRole');
+        $add->save();
+        Request::session()->flash('status', 'เพิ่มสิทธิการเข้าถึงสำเร็จ!!');
+            return redirect()->route('role');
+    }
 }

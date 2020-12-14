@@ -12,7 +12,8 @@ class uploadfile extends Model
                         'path',
                         'filename',
                         'status',
-                        'users_id'];
+                        'users_id',
+                        'users_id_print'];
     public function User()
     {
         return $this->belongsTo('App\Models\User','users_id','id');
